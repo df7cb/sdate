@@ -1,0 +1,124 @@
+#!/usr/bin/make -f
+
+CFLAGS = -W -Wall -g
+INSTALL = install
+INSTALL_FILE    = $(INSTALL) -p    -o root -g root  -m  644
+INSTALL_PROGRAM = $(INSTALL) -p    -o root -g root  -m  755
+INSTALL_SCRIPT  = $(INSTALL) -p    -o root -g root  -m  755
+INSTALL_DIR     = $(INSTALL) -p -d -o root -g root  -m  755
+
+ifneq (,$(findstring noopt,$(DEB_BUILD_OPTIONS)))
+CFLAGS += -O0
+else
+CFLAGS += -O2
+endif
+
+ifeq (,$(findstring nostrip,$(DEB_BUILD_OPTIONS)))
+INSTALL_PROGRAM += -s
+endif
+
+
+build: build-stamp
+build-stamp:
+	dh_testdir
+
+	mkdir obj objfake
+	cd obj && CFLAGS="$(CFLAGS)" ../configure --prefix=/usr --mandir=/usr/share/man --libdir=/usr/lib/libsdate
+	cd objfake && CFLAGS="$(CFLAGS)" ../fake/configure --prefix=/usr --mandir=/usr/share/man
+
+	cd obj && $(MAKE)
+	cd objfake && $(MAKE)
+
+	cd obj && $(MAKE) check
+
+	touch build-stamp
+
+clean:
+	dh_testdir
+	dh_testroot
+	rm -rf obj objfake obj64
+	rm -f build-stamp build-biarch-stamp
+	-cd obj && $(MAKE) distclean
+	-cd objfake && $(MAKE) distclean
+ifneq (,$(findstring $(DEB_HOST_GNU_TYPE), sparc-linux s390-linux))
+	-cd obj64 && $(MAKE) distclean
+endif
+	rm -rf .deps
+	rm -f debian/substvars
+	rm -rf debian/sdate obj obj64 objfake autom4te.cache
+	dh_clean
+
+# Build architecture-independent files here.
+binary-indep: build
+# We have nothing to do by default.
+
+# Build architecture-dependent files here.
+binary-arch: build
+	dh_testdir
+	dh_testroot
+
+	#rm debian/sdate/usr/lib/libsdate/libsdate.so.0
+	#rm debian/sdate/usr/lib/libsdate.so.0
+
+	cd obj && $(MAKE) DESTDIR="$(CURDIR)/debian/sdate" install
+	cd objfake && $(MAKE) DESTDIR="$(CURDIR)/debian/sdate" install
+	$(INSTALL_DIR) debian/sdate/DEBIAN debian/sdate/usr/bin/
+#	$(INSTALL_SCRIPT) scripts/sdate debian/sdate/usr/bin/
+	$(INSTALL_DIR) debian/sdate/usr/share/doc/sdate \
+		           debian/sdate/usr/lib/libsdate
+	cd obj && ./libtool --finish $(CURDIR)/debian/sdate/usr/lib/sdate
+	cd objfake && ./libtool --finish $(CURDIR)/debian/sdate/usr/lib
+	rm -f debian/sdate/usr/lib/libsdate/libsdate.*a*
+	rm -f debian/sdate/usr/bin/simple debian/sdate/usr/lib/libsdate.la
+	rm debian/sdate/usr/lib/libsdate/libsdate.so
+	rm debian/sdate/usr/lib/libsdate.a
+	rm debian/sdate/usr/lib/libsdate.so
+ifneq (,$(findstring $(DEB_HOST_GNU_TYPE), sparc-linux s390-linux))
+	debian/rules binary-biarch
+endif
+	dh_installdocs
+	dh_compress
+	dh_strip
+	# We can just use the deps for faked.
+	dh_shlibdeps
+	#dpkg-shlibdeps -Tdebian/substvars debian/sdate/usr/bin/faked
+	#dpkg-gencontrol -ldebian/changelog -isp -Tdebian/substvars -Pdebian/sdate
+	chmod  4644  debian/sdate/usr/lib/libsdate.so.0.0.1
+	dh_fixperms -Xdebian/sdate/usr/lib/libsdate.so.0.0.1
+	dh_gencontrol
+	dh_builddeb
+
+binary-biarch:
+	dh_testdir
+	mkdir obj64
+
+ifeq (sparc-linux,$(DEB_HOST_GNU_TYPE))
+	cd obj64 && CC="gcc -m64" ../configure --prefix=/usr --mandir=/usr/share/man --build=sparc-linux --host=sparc64-linux
+endif
+ifeq (s390-linux,$(DEB_HOST_GNU_TYPE))
+	cd obj64 && CC="gcc -m64" ../configure --prefix=/usr --mandir=/usr/share/man --build=sparc-linux --host=s390x-linux
+endif
+
+	$(INSTALL_DIR) debian/sdate/usr/lib64/libsdate
+		$(CURDIR)/debian/sdate/usr/lib64/libsdate/libsdate.la
+	rm -f debian/sdate/usr/lib64/libsdate/libsdate.*a*
+
+	cd obj64 && $(MAKE) libsdate.la
+	$(INSTALL_DIR) debian/sdate/usr/lib64/libsdate
+	cd obj64 && $(SHELL) ./libtool --mode=install install libsdate.la \
+		$(CURDIR)/debian/sdate/usr/lib64/libsdate/libsdate.la
+#	cd obj64 && ./libtool --finish debian/sdate-sparc/usr/lib64/sdate
+	rm -f debian/sdate/usr/lib64/libsdate/libsdate.*a*
+	rm debian/sdate/usr/lib64/libsdate/libsdate.so
+#	rm debian/sdate/usr/lib64/libsdate.so
+
+source diff:
+	@echo >&2 'source and diff are obsolete - use dpkg-source -b'; false
+
+binary: binary-indep binary-arch
+.PHONY: build clean binary-indep binary-arch binary prebuild
+
+prebuild:
+	autoreconf -fi
+	cd fake && autoreconf -fi
+

@@ -1,0 +1,107 @@
+#!/bin/sh
+
+usage () {
+cat - >&2 <<EOF
+sdate, never ending september date
+   usage: sdate [-l|--lib sdatelib] [-i file] [-h|--help] [-v|--version]
+                [--] [command]
+EOF
+  exit 1
+}
+
+# strip /bin/sdate to find install prefix
+PREFIX=@prefix@
+BINDIR=@bindir@
+    
+LIB=lib@sdate_transformed@.so.0
+PATHS=@libdir@:${PREFIX}/lib64/libsdate
+
+libfound=no
+
+GETOPTEST=`getopt --version`
+case $GETOPTEST in
+getopt*) # GNU getopt
+    TEMP=`getopt -l lib: -l version -l help -- +l:f:i:s:ub:vh "$@"`
+    ;;
+*) # POSIX getopt ?
+    TEMP=`getopt l:f:i:s:ub:vh "$@"`
+    ;;
+esac
+
+if test "$?" -ne 0; then
+  usage
+fi
+
+eval set -- "$TEMP"
+
+PIPEIN=""
+
+while test "X$1" != "X--"; do
+  case "$1" in
+    -l|--lib)
+       shift
+       LIB=`eval echo "$1"`
+       PATHS=
+       ;;
+    -i)
+       shift
+       if test -f "$1"; then
+         PIPEIN="<$1"
+       else
+         echo 1>&2 "sdate: database file \`$1' does not exist."
+       fi
+       ;;
+    -v|--version)
+       echo "sdate version @VERSION@"
+       exit 0
+       ;;
+    -h|--help)
+       usage
+       ;;
+  esac
+  shift
+done
+
+shift #get rid of the '--'
+
+# make sure the preload is available
+if [ -n "$PATHS" ]
+then
+    for dir in `echo $PATHS | sed 's/:/ /g'`
+    do
+	if test -r "$dir/$LIB"
+	then
+	    libfound=yes
+	fi
+    done
+else
+    if test -r "$LIB"
+    then
+	libfound=yes
+    fi
+fi
+
+if test $libfound = no
+then
+    echo >&2 "sdate: preload library not found in $PATHS, aborting."
+    exit 1
+fi
+
+# Keep other library paths
+if test -n "$LD_LIBRARY_PATH"; then
+  PATHS="$PATHS:$LD_LIBRARY_PATH"
+fi
+# ...and preloaded libs
+if test -n "$LD_PRELOAD"; then
+  LIB="$LIB $LD_PRELOAD"
+fi
+
+if test -z "$*"; then
+  LD_LIBRARY_PATH="$PATHS" LD_PRELOAD="$LIB" date
+  RESULT=$?
+else
+  LD_LIBRARY_PATH="$PATHS" LD_PRELOAD="$LIB" "$@"
+  RESULT=$?
+fi
+
+exit $RESULT

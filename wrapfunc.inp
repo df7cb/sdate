@@ -1,0 +1,19 @@
+/* This file lists the functions that are wrapped by libtricks, their     */ 
+/* arguments, and the way to call them. This is then used to generate	  */ 
+/* the wrapper functions declarations in wrapped.h, the wrapper functions */ 
+/* definitions wrapdef.h (actually, only assignments of the function 	  */ 
+/* variables), the structure of wraped functions in wrapstruct.h,	  */ 
+/* and the temporary definitions (that hold until one of them is executed)*/ 
+/* in wraptmpf.h                                                          */ 
+/**/                                                                      */
+/**/									  */
+/* each line of this file lists 4 fields, seperated by a ";".		  */
+/* The first field is the name of the wrapped function, then it's return  */
+/* value. After that come the function arguments with types, and the last */
+/* field contains the function arguments without types.                   */
+/**/
+
+gmtime;struct tm*;(const time_t *timep);(timep)
+gmtime_r;struct tm*;(const time_t *timep, struct tm *result);(timep, result)
+localtime;struct tm*;(const time_t *timep);(timep)
+localtime_r;struct tm*;(const time_t *timep, struct tm *result);(timep, result)
