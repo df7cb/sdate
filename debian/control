@@ -1,7 +1,7 @@
 Source: sdate
 Section: utils
 Priority: optional
-Build-Depends: sharutils, libc6-dev-s390x [s390], libc6-dev-sparc64 [sparc]
+Build-Depends: sharutils, libc6-dev-s390x [s390], libc6-dev-sparc64 [sparc], debhelper (>= 4)
 Maintainer: Christoph Berg <cb@df7cb.de>
 Standards-Version: 3.6.1
 

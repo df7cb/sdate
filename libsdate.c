@@ -133,7 +133,9 @@ static int epoch_days(struct tm *t1) {
 
 static struct tm *septemberfy(struct tm *t) {
   if((t->tm_year == 93 && t->tm_mon > 8) || t->tm_year > 93) {
-    fprintf(stderr, "septemberfy: %d-%d-%d!\n", t->tm_year, t->tm_mon, t->tm_mday);
+#ifdef DEBUG
+    fprintf(stderr, "septemberfy: %d-%d-%d\n", t->tm_year, t->tm_mon, t->tm_mday);
+#endif
     if(t->tm_mon >= 0 && t->tm_mon < 12)
       t->tm_mday = epoch_days(t);
     t->tm_mon = 8;
