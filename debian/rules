@@ -36,13 +36,7 @@ build-stamp:
 clean:
 	dh_testdir
 	dh_testroot
-	rm -rf obj objfake obj64
 	rm -f build-stamp build-biarch-stamp
-	-cd obj && $(MAKE) distclean
-	-cd objfake && $(MAKE) distclean
-ifneq (,$(findstring $(DEB_HOST_GNU_TYPE), sparc-linux s390-linux))
-	-cd obj64 && $(MAKE) distclean
-endif
 	rm -rf .deps
 	rm -f debian/substvars
 	rm -rf debian/sdate obj obj64 objfake autom4te.cache

@@ -123,53 +123,62 @@ void load_library_symbols(void){
 
 /* sdate */
 
+static int epoch_days(struct tm *t1) {
+  static struct tm epoch_tm = { 0, 0, 0, 31, 7, 93, 0, 0, 0, 0, NULL };
+  static time_t epoch = 0;
+  if(!epoch) epoch = mktime(&epoch_tm);
+  time_t t = mktime(t1);
+  return (int)((t - epoch)/(86400));
+}
+
 static struct tm *septemberfy(struct tm *t) {
-  static int month_offset[] = { -243, -212, -184, -153, -123, -92, -62, -31, 0, 30, 61, 91 };
   if((t->tm_year == 93 && t->tm_mon > 8) || t->tm_year > 93) {
+    fprintf(stderr, "septemberfy: %d-%d-%d!\n", t->tm_year, t->tm_mon, t->tm_mday);
     if(t->tm_mon >= 0 && t->tm_mon < 12)
-      t->tm_mday += month_offset[t->tm_mon] + 365 * (t->tm_year - 93) +
-	(int)((t->tm_year - 92) / 4);
+      t->tm_mday = epoch_days(t);
     t->tm_mon = 8;
     t->tm_year = 93;
-    // TODO: FIXME leap years
   }
   return t;
 }
 
 struct tm *gmtime(const time_t *timep) {
   struct tm *result = next_gmtime(timep);
-  //fputs("gmtime wrapped\n", stderr);
+#ifdef DEBUG
+  fputs("gmtime wrapped\n", stderr);
+#endif
   return septemberfy(result);
 }
 
 struct tm *gmtime_r(const time_t *timep, struct tm *result) {
-  //fputs("gmtime_r wrapped\n", stderr);
+#ifdef DEBUG
+  fputs("gmtime_r wrapped\n", stderr);
+#endif
   result = next_gmtime_r(timep, result);
   return septemberfy(result);
 }
 
 struct tm *localtime(const time_t *timep) {
   struct tm *result = next_localtime(timep);
-  //fputs("localtime wrapped\n", stderr);
+#ifdef DEBUG
+  fputs("localtime wrapped\n", stderr);
+#endif
   return septemberfy(result);
 }
 
 struct tm *localtime_r(const time_t *timep, struct tm *result) {
-  //fputs("localtime_r wrapped\n", stderr);
+#ifdef DEBUG
+  fputs("localtime_r wrapped\n", stderr);
+#endif
   result = next_localtime_r(timep, result);
   return septemberfy(result);
 }
 
-/* /sdate */
-
-int fakeroot_disable(int new)
-{
-  int old = fakeroot_disabled;
-  fakeroot_disabled = new ? 1 : 0;
-  return old;
+/*
+time_t mktime(struct tm *tm) {
+#ifdef DEBUG
+  fputs("mktime wrapped\n", stderr);
+#endif
+  return next_mktime(tm);
 }
-
-int fakeroot_isdisabled(void)
-{
-  return fakeroot_disabled;
-}
+*/
