@@ -22,20 +22,6 @@ int main (int argc, char **argv)
 	ti = time(NULL);
 	localtime_r(&ti, &t);
 
-	/*
-	if((t.tm_year == 93 && t.tm_mon == 8) || t.tm_year > 93) {
-		struct tm sep93 = { 0, 0, 0,
-			31, 7, 93,
-			0, 0, 0
-		};
-		time_t epoch = mktime(&sep93);
-		int d = (int)((ti - epoch) / 86400);
-		t.tm_year = 93;
-		t.tm_mon = 8;
-		t.tm_mday = d;
-	}
-	*/
-
 	if(argc > 2)
 		exit(2);
 	if(argc == 2)

@@ -121,66 +121,19 @@ void load_library_symbols(void){
 }
 
 
-/* sdate */
+/* strftime-rel */
 
-static int epoch_days(struct tm *t1) {
-  static struct tm epoch_tm = { 0, 0, 0, 31, 7, 93, 0, 0, 0, 0, NULL };
-  static time_t epoch = 0;
-  if(!epoch) epoch = mktime(&epoch_tm);
-  time_t t = mktime(t1);
-  return (int)((t - epoch)/(86400));
-}
-
-static struct tm *septemberfy(struct tm *t) {
-  if((t->tm_year == 93 && t->tm_mon > 8) || t->tm_year > 93) {
-#ifdef DEBUG
-    fprintf(stderr, "septemberfy: %d-%d-%d\n", t->tm_year, t->tm_mon, t->tm_mday);
-#endif
-    if(t->tm_mon >= 0 && t->tm_mon < 12)
-      t->tm_mday = epoch_days(t);
-    t->tm_mon = 8;
-    t->tm_year = 93;
+size_t strftime(char *s, size_t max, const char *format, const struct tm *tm) {
+  if(!strcmp(format, "REL")) {
+    time_t t = time(NULL);
+    struct tm now;
+    localtime_r(&t, &now);
+    if(now.tm_year == tm->tm_year && now.tm_mon == tm->tm_mon && now.tm_mday == tm->tm_mday) {
+      format = "%H:%M:%S";
+    } else {
+      format = "%y/%m/%d";
+    }
   }
-  return t;
+  return next_strftime(s, max, format, tm);
 }
 
-struct tm *gmtime(const time_t *timep) {
-  struct tm *result = next_gmtime(timep);
-#ifdef DEBUG
-  fputs("gmtime wrapped\n", stderr);
-#endif
-  return septemberfy(result);
-}
-
-struct tm *gmtime_r(const time_t *timep, struct tm *result) {
-#ifdef DEBUG
-  fputs("gmtime_r wrapped\n", stderr);
-#endif
-  result = next_gmtime_r(timep, result);
-  return septemberfy(result);
-}
-
-struct tm *localtime(const time_t *timep) {
-  struct tm *result = next_localtime(timep);
-#ifdef DEBUG
-  fputs("localtime wrapped\n", stderr);
-#endif
-  return septemberfy(result);
-}
-
-struct tm *localtime_r(const time_t *timep, struct tm *result) {
-#ifdef DEBUG
-  fputs("localtime_r wrapped\n", stderr);
-#endif
-  result = next_localtime_r(timep, result);
-  return septemberfy(result);
-}
-
-/*
-time_t mktime(struct tm *tm) {
-#ifdef DEBUG
-  fputs("mktime wrapped\n", stderr);
-#endif
-  return next_mktime(tm);
-}
-*/

@@ -13,7 +13,5 @@
 /* field contains the function arguments without types.                   */
 /**/
 
-gmtime;struct tm*;(const time_t *timep);(timep)
-gmtime_r;struct tm*;(const time_t *timep, struct tm *result);(timep, result)
-localtime;struct tm*;(const time_t *timep);(timep)
-localtime_r;struct tm*;(const time_t *timep, struct tm *result);(timep, result)
+/* size_t strftime(char *s, size_t max, const char *format, const struct tm *tm); */
+strftime;size_t;(char *s, size_t max, const char *format, const struct tm *tm);(s, max, format, tm)

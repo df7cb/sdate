@@ -1,19 +1,12 @@
-Source: sdate
+Source: strftime-rel
 Section: utils
 Priority: optional
 Build-Depends: sharutils, libc6-dev-s390x [s390], libc6-dev-sparc64 [sparc], debhelper (>= 4)
 Maintainer: Christoph Berg <cb@df7cb.de>
 Standards-Version: 3.6.1
 
-Package: sdate
+Package: strftime-rel
 Architecture: any
 Depends: ${shlibs:Depends}
-Description: never ending september date
- This package wraps the libc localtime() and gmtime() functions to output the
- eternal september 1993 date.
- .
- sdate works like fakeroot (on which its code is based) by setting LD_PRELOAD
- to a wrapper library.
- .
-  * http://www.catb.org/~esr/jargon/html/S/September-that-never-ended.html
-  * http://www.df7cb.de/projects/sdate/
+Description: wrapper around strftime to display time for today and date else
+ This package wraps the libc strftime() function.
