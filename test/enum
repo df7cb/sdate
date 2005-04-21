@@ -1,0 +1,11 @@
+#!/usr/bin/perl -w
+
+use strict;
+
+my $epoch = 746748000;
+
+foreach my $d (1 .. 10000) {
+	my $time = $epoch + 86400 * $d + 10000;
+	my $day = (localtime($time))[3];
+	print "$d = $day\n" if $d != $day;
+}

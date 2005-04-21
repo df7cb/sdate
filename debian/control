@@ -9,8 +9,8 @@ Package: sdate
 Architecture: any
 Depends: ${shlibs:Depends}
 Description: never ending september date
- This package wraps the libc localtime() and gmtime() functions to output the
- eternal september 1993 date.
+ sdate wraps the libc localtime() and gmtime() functions to output the eternal
+ september 1993 date.
  .
  sdate works like fakeroot (on which its code is based) by setting LD_PRELOAD
  to a wrapper library.
