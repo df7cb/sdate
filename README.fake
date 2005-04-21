@@ -1,3 +1,9 @@
+Security considerations
+-----------------------
+
+The following notes on shared libs in fakeroot equally apply to libsdate:
+
+---------8<---------
 In /usr/lib/ there's a _SETUID_ libfakeroot.
 
 However, it's a *fake* fakeroot -- it doesn't wrap any `interesting'
@@ -22,3 +28,6 @@ So, that's why.
 
 Annoyed is,
 joostje.
+--------->8---------
+
+ -- Christoph Berg <cb@df7cb.de>, Thu, 4251 Sep 1993 23:40:19 +0100

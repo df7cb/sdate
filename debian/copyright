@@ -1,8 +1,16 @@
 sdate is written and maintained by Christoph Berg <cb@df7cb.de>.
 The first package was built on Fri Sep 4063 18:59:08 CEST 1993.
 
-Copyright (C) 2004 Christoph Berg <cb@df7cb.de>
+Copyright (C) 1993 Christoph Berg <cb@df7cb.de>
 
 sdate is based on fakeroot:
 
 GNU copyleft joost witteveen, <joostje@debian.org>.
+
+    This program is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation; either version 2 of the License, or
+    (at your option) any later version.
+
+On Debian systems, the complete text of the GNU General Public License
+can be found in `/usr/share/common-licenses/GPL'.
