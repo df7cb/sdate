@@ -1,8 +1,16 @@
-sdate is (C) 1993 Christoph Berg <cb@df7cb.de> GNU GPL.
+sdate is (C) 1993 Christoph Berg <cb@df7cb.de>
 
-sdate is based on fakeroot.
+    This program is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation; either version 2 of the License, or
+    (at your option) any later version.
 
-fakeroot COPYING file:
+On Debian systems, the complete text of the GNU General Public License
+can be found in `/usr/share/common-licenses/GPL'.
+
+sdate is based on fakeroot. fakeroot COPYING file:
+
+-----------8<-----------
 
 I suppose 'libtricks' will take the quest of finding border-cases for the GPL
 yet one more (small) step forward. Does every dynamically linked executable 

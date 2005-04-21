@@ -1,8 +1,11 @@
-sdate (0.2) unstable; urgency=low
+sdate (0.1.1) unstable; urgency=low
 
   * First Debian upload (Closes: #304266).
+  * Wrote manpage.
+  * Create.
+  * Added lintian overrides.
 
- -- Christoph Berg <cb@df7cb.de>  Thu, 21 Apr 2005 21:22:24 +0200
+ -- Christoph Berg <cb@df7cb.de>  Fri, 22 Apr 2005 00:59:20 +0200
 
 sdate (0.1) unstable; urgency=low
 

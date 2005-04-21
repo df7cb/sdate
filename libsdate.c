@@ -1,4 +1,8 @@
 /*
+  Copyright (C) 1993 Christoph Berg <cb@df7cb.de>
+  This program is free software, see COPYING for copyright terms.
+  sdate is based on fakeroot:
+
   Copyright: GPL. 
   Author: joost witteveen  (joostje@debian.org)
 */
@@ -83,8 +87,6 @@ void *get_libc(){
 #endif
 }
 void load_library_symbols(void);
-
-int fakeroot_disabled = 0;
 
 #include "wrapped.h"
 #include "wraptmpf.h"

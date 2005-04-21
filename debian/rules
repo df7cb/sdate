@@ -26,10 +26,7 @@ build-stamp:
 clean:
 	dh_testdir
 	dh_testroot
-	rm -f build-stamp build-biarch-stamp
-	rm -rf .deps
-	rm -f debian/substvars
-	rm -rf debian/sdate obj obj64 objfake autom4te.cache
+	rm -rf build-stamp .deps obj objfake autom4te.cache
 	dh_clean
 
 # Build architecture-independent files here.
@@ -47,11 +44,13 @@ binary-arch: build
 	cd objfake && ./libtool --finish $(CURDIR)/debian/sdate/usr/lib
 	dh_installchangelogs
 	dh_installdocs
+	cp debian/override $(CURDIR)/debian/sdate/usr/share/lintian/overrides/sdate
 	dh_compress
 	dh_strip
-	dh_shlibdeps
 	chmod 4644 debian/sdate/usr/lib/libsdate.so.0.0.1
 	dh_fixperms -Xdebian/sdate/usr/lib/libsdate.so.0.0.1
+	dh_makeshlibs
+	dh_shlibdeps
 	dh_gencontrol
 	dh_builddeb
 

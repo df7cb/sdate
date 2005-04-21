@@ -1,0 +1,3 @@
+sdate binary: non-standard-file-perm usr/lib/libsdate.so.0.0.1 0744 != 0644
+sdate binary: shlib-with-bad-permissions usr/lib/libsdate.so.0.0.1 0744
+sdate binary: non-dev-pkg-with-shlib-symlink usr/lib/libsdate.so.0.0.1 usr/lib/libsdate.so
