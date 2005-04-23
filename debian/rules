@@ -44,7 +44,8 @@ binary-arch: build
 	cd objfake && ./libtool --finish $(CURDIR)/debian/sdate/usr/lib
 	dh_installchangelogs
 	dh_installdocs
-	cp debian/override $(CURDIR)/debian/sdate/usr/share/lintian/overrides/sdate
+	cp debian/lintian-override $(CURDIR)/debian/sdate/usr/share/lintian/overrides/sdate
+	cp debian/linda-override $(CURDIR)/debian/sdate/usr/share/linda/overrides/sdate
 	dh_compress
 	dh_strip
 	chmod 4644 debian/sdate/usr/lib/libsdate.so.0.0.1

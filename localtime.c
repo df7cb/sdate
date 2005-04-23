@@ -1,6 +1,6 @@
 /*
- * (C) 2004 Christoph Berg <cb@df7cb.de>
- * GNU GPL.
+ * Copyright (C) 1993 Christoph Berg <cb@df7cb.de>
+ * This program is free software, see COPYING for copyright terms.
  */
 
 #include <locale.h>
