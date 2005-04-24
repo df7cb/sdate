@@ -1,10 +1,11 @@
 sdate (0.2) unstable; urgency=low
 
+  * Fixed algorithm to work independently of timezone.
   * First Debian upload (Closes: #304266).
   * Wrote manpage.
   * Added lintian and linda overrides.
 
- -- Christoph Berg <cb@df7cb.de>  Sun, 24 Apr 2005 00:02:49 +0200
+ -- Christoph Berg <cb@df7cb.de>  Sun, 24 Apr 2005 02:07:48 +0200
 
 sdate (0.1) unstable; urgency=low
 
