@@ -1,0 +1,17 @@
+#!/usr/bin/perl -w
+
+use strict;
+
+print "Sun Apr 24 00:52:39 2005 CET = 1993-08-31 +4254days\n";
+
+my $time = 1114296759;
+#my $time = 746755200 + 30*86400;
+
+my $end = $time + 100000;
+
+for (; $time < $end; $time += 3600) {
+	print scalar localtime $time;
+	print " ";
+	print scalar gmtime $time;
+	print "\n";
+}

@@ -1,11 +1,12 @@
 #!/usr/bin/perl -w
 
 use strict;
+use POSIX qw/mktime/;
 
-my $epoch = 746748000;
+my $epoch = mktime(0, 0, 0, 31, 7, 93, 0, 0, 0);
 
-foreach my $d (1 .. 10000) {
-	my $time = $epoch + 86400 * $d + 10000;
+foreach my $d (1 .. 38888) {
+	my $time = $epoch + 86400 * $d;
 	my $day = (localtime($time))[3];
-	print "$d = $day\n" if $d != $day;
+	print "$d = $day ". localtime($time) ."\n" if $d != $day;
 }

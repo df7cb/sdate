@@ -122,24 +122,19 @@ void load_library_symbols(void){
   }
 }
 
-
 /* sdate */
 
-static int epoch_days(struct tm *t1) {
-  static struct tm epoch_tm = { 0, 0, 0, 31, 7, 93, 0, 0, 0, 0, NULL };
-  static time_t epoch = 0;
-  if(!epoch) epoch = mktime(&epoch_tm);
-  time_t t = mktime(t1);
-  return (int)((t - epoch)/(86400));
-}
-
 static struct tm *septemberfy(struct tm *t) {
+  static int mon_offset[] = { -243, -212, -184, -153, -123, -92, -62, -31, 0, 30, 61, 91};
   if((t->tm_year == 93 && t->tm_mon > 8) || t->tm_year > 93) {
 #ifdef DEBUG
     fprintf(stderr, "septemberfy: %d-%d-%d\n", t->tm_year, t->tm_mon, t->tm_mday);
 #endif
     if(t->tm_mon >= 0 && t->tm_mon < 12)
-      t->tm_mday = epoch_days(t);
+      t->tm_mday += 365 * (t->tm_year - 93)
+	+ (int)(t->tm_year - 92) / 4
+	- (t->tm_year % 4 == 0 && t->tm_mon < 2)
+	+ mon_offset[t->tm_mon];
     t->tm_mon = 8;
     t->tm_year = 93;
   }
