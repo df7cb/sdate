@@ -3,10 +3,11 @@ sdate (0.2.1) unstable; urgency=low
   * Capitalize September in Description and documentation (Closes: #306372,
     thanks to Joey Schulze).
   * Remove sharutils Build-Dep.
+  * Lintian: our package name is ok.
   * Bump Standards-Version.
   * I'm DD :-).
 
- -- Christoph Berg <cb@df7cb.de>  Sat,  3 Sep 2005 11:47:09 +0200
+ -- Christoph Berg <myon@debian.org>  Sat,  3 Sep 2005 12:01:11 +0200
 
 sdate (0.2) unstable; urgency=low
 
