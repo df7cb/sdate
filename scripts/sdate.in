@@ -2,7 +2,7 @@
 
 usage () {
 cat - >&2 <<EOF
-sdate, never ending september date
+sdate, never ending September date
    usage: sdate [-l|--lib sdatelib] [-i file] [-h|--help] [-v|--version]
                 [--] [command]
 EOF
