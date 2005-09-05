@@ -7,7 +7,7 @@ sdate (0.2.1) unstable; urgency=low
   * Bump Standards-Version.
   * I'm DD :-).
 
- -- Christoph Berg <myon@debian.org>  Sat,  3 Sep 2005 12:01:11 +0200
+ -- Christoph Berg <myon@debian.org>  Mon,  5 Sep 2005 12:01:45 +0200
 
 sdate (0.2) unstable; urgency=low
 
