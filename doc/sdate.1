@@ -13,12 +13,14 @@
 .sp
 ..
 .\"
-.TH sdate 1 "4386 September 1993" "Debian Project" "Debian manual"
+.TH sdate 1 "4620 September 1993" "Debian Project" "Debian manual"
 .\" Manpage by Christoph Berg <cb@df7cb.de>
 .SH NAME
 sdate \- never ending September date
 .SH SYNOPSIS
 .B sdate 
+.B [\-e|\-\-epoch
+.IB yyyy-mm]
 .B [\-l|\-\-lib
 .IB library]
 .BI [\-\-]
@@ -34,6 +36,9 @@ which is loaded through the
 mechanism of the dynamic loader. (See
 .BR ld.so (8))
 .SH OPTIONS
+.TP
+\fB\-e\fR \fIyyyy-mm\fR, \fB\-\-epoch\fR \fIyyyy-mm\fR
+Specify an alternative epoch, default is 1993-09.
 .TP
 \fB\-l\fR \fIlibrary\fR, \fB\-\-lib\fR \fIlibrary\fR
 Specify an alternative wrapper library.
@@ -60,10 +65,15 @@ Every command executed within
 needs to be linked to the same version of the C library as
 .B sdate
 itself.
+.SH SEE ALSO
+.TP
+http://www.catb.org/~esr/jargon/html/S/September-that-never-ended.html
+.TP
+http://www.df7cb.de/projects/sdate/
 .SH COPYING
 .B sdate
 is distributed under the GNU General Public License.
-(GPL 2 or greater).
+(GPL v2 or later).
 .SH AUTHORS
 .TP
 Christoph Berg

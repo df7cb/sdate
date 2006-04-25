@@ -124,19 +124,49 @@ void load_library_symbols(void){
 
 /* sdate */
 
-static struct tm *septemberfy(struct tm *t) {
-  static int mon_offset[] = { -243, -212, -184, -153, -123, -92, -62, -31, 0, 30, 61, 91};
-  if((t->tm_year == 93 && t->tm_mon > 8) || t->tm_year > 93) {
+static inline int epoch_days(int y, int m) /* days past 1970-01-01 */
+{
+                           /* 1  2   3   4   5    6    7    8    9    10   11   12 */
+  static int mon_offset[] = { 0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334 };
+  return 365 * (y - 70)
+	+ (int)((y - 69) / 4)         /* leap days in previous years */
+	+ ((y % 4 == 0) && (m >= 2))  /* this year's leap day */
+	+ mon_offset[m];
+}
+
+static struct tm *septemberfy(struct tm *t)
+{
+  static int sep_offset = -1;
+  static int sep_y = 93;
+  static int sep_m = 8;
+
+  if (sep_offset == -1) {
+    char *e;
+    if ((e = getenv("SDATE_EPOCH"))) {
+      sscanf(e, "%d-%d", &sep_y, &sep_m);
+      sep_m--;
+    }
+
+    if (sep_y < 70)
+      sep_y += 100;
+    if (sep_y > 1900)
+      sep_y -= 1900;
+    if (sep_y < 1 || sep_y > 199) /* range where our leap year stuff works */
+      sep_y = 93;
+    if (sep_m < 0 || sep_m > 11)
+      sep_m = 8;
+
+    sep_offset = epoch_days(sep_y, sep_m);
+  }
+
+  if((t->tm_year == sep_y && t->tm_mon > sep_m) || t->tm_year > sep_y) {
 #ifdef DEBUG
     fprintf(stderr, "septemberfy: %d-%d-%d\n", t->tm_year, t->tm_mon, t->tm_mday);
 #endif
     if(t->tm_mon >= 0 && t->tm_mon < 12)
-      t->tm_mday += 365 * (t->tm_year - 93)
-	+ (int)(t->tm_year - 92) / 4
-	- (t->tm_year % 4 == 0 && t->tm_mon < 2)
-	+ mon_offset[t->tm_mon];
-    t->tm_mon = 8;
-    t->tm_year = 93;
+      t->tm_mday += epoch_days(t->tm_year, t->tm_mon) - sep_offset;
+    t->tm_mon = sep_m;
+    t->tm_year = sep_y;
   }
   return t;
 }

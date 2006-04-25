@@ -3,10 +3,11 @@
 use strict;
 use POSIX qw/mktime/;
 
-my $epoch = mktime(0, 0, 0, 31, 7, 93, 0, 0, 0);
+my $epoch = mktime(0, 0, 0, 31, 7, 93, 0, 0, 0); # 1993-08-31
+#my $epoch = mktime(0, 0, 0, 28, 1, 77, 0, 0, 0); # 1977-02-28
 
-foreach my $d (1 .. 38888) {
+foreach my $d (0 .. 38888) {
 	my $time = $epoch + 86400 * $d;
 	my $day = (localtime($time))[3];
-	print "$d = $day ". localtime($time) ."\n" if $d != $day;
+	print "$d != ". localtime($time) ."\n" if $d != $day;
 }

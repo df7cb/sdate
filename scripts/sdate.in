@@ -3,7 +3,7 @@
 usage () {
 cat - >&2 <<EOF
 sdate, never ending September date
-   usage: sdate [-l|--lib sdatelib] [-i file] [-h|--help] [-v|--version]
+   usage: sdate [-e|--epoch yyyy-mm] [-l|--lib sdatelib] [-h|--help] [-v|--version]
                 [--] [command]
 EOF
   exit 1
@@ -21,10 +21,10 @@ libfound=no
 GETOPTEST=`getopt --version`
 case $GETOPTEST in
 getopt*) # GNU getopt
-    TEMP=`getopt -l lib: -l version -l help -- +l:f:i:s:ub:vh "$@"`
+    TEMP=`getopt -l lib: -l epoch: -l version -l help -- +l:f:e:s:ub:vh "$@"`
     ;;
 *) # POSIX getopt ?
-    TEMP=`getopt l:f:i:s:ub:vh "$@"`
+    TEMP=`getopt l:f:e:s:ub:vh "$@"`
     ;;
 esac
 
@@ -34,8 +34,6 @@ fi
 
 eval set -- "$TEMP"
 
-PIPEIN=""
-
 while test "X$1" != "X--"; do
   case "$1" in
     -l|--lib)
@@ -43,13 +41,10 @@ while test "X$1" != "X--"; do
        LIB=`eval echo "$1"`
        PATHS=
        ;;
-    -i)
+    -e|--epoch)
        shift
-       if test -f "$1"; then
-         PIPEIN="<$1"
-       else
-         echo 1>&2 "sdate: database file \`$1' does not exist."
-       fi
+       SDATE_EPOCH="$1"
+       export SDATE_EPOCH
        ;;
     -v|--version)
        echo "sdate version @VERSION@"

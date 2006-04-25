@@ -25,7 +25,6 @@ build-stamp:
 
 clean:
 	dh_testdir
-	dh_testroot
 	rm -rf build-stamp .deps obj objfake autom4te.cache
 	dh_clean
 
