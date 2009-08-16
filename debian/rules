@@ -8,9 +8,10 @@ else
 CFLAGS += -O2
 endif
 
-build: build-stamp
+build build-arch: build-stamp
 build-stamp:
 	dh_testdir
+	cp /usr/share/misc/config.guess /usr/share/misc/config.sub .
 
 	mkdir obj objfake
 	cd obj && CFLAGS="$(CFLAGS)" ../configure --prefix=/usr --mandir=/usr/share/man --libdir=/usr/lib/libsdate
@@ -28,11 +29,9 @@ clean:
 	rm -rf build-stamp .deps obj objfake autom4te.cache
 	dh_clean
 
-# Build architecture-independent files here.
-binary-indep: build
+binary-indep:
 
-# Build architecture-dependent files here.
-binary-arch: build
+binary binary-arch: build-stamp
 	dh_testdir
 	dh_testroot
 	dh_installdirs
@@ -43,8 +42,7 @@ binary-arch: build
 	cd objfake && ./libtool --finish $(CURDIR)/debian/sdate/usr/lib
 	dh_installchangelogs
 	dh_installdocs
-	cp debian/lintian-override $(CURDIR)/debian/sdate/usr/share/lintian/overrides/sdate
-	cp debian/linda-override $(CURDIR)/debian/sdate/usr/share/linda/overrides/sdate
+	dh_lintian
 	dh_compress
 	dh_strip
 	chmod 4644 debian/sdate/usr/lib/libsdate.so.0.0.1
@@ -54,5 +52,4 @@ binary-arch: build
 	dh_gencontrol
 	dh_builddeb
 
-binary: binary-indep binary-arch
-.PHONY: build clean binary-indep binary-arch binary prebuild
+.PHONY: build-indep build-arch build clean binary-indep binary-arch binary

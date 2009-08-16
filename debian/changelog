@@ -1,3 +1,10 @@
+sdate (0.3.1) unstable; urgency=low
+
+  * Update config.guess & sub at build time. (Closes: #534813)
+  * Bump Standards-Version, use DH compat 7.
+
+ -- Christoph Berg <myon@debian.org>  Sun, 16 Aug 2009 14:00:06 +0200
+
 sdate (0.3) unstable; urgency=low
 
   * The epoch is now configurable, use sdate -e 1977-03 or set
