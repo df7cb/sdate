@@ -8,49 +8,31 @@ else
 CFLAGS += -O2
 endif
 
-build build-arch: build-stamp
-build-stamp:
-	dh_testdir
-	cp /usr/share/misc/config.guess /usr/share/misc/config.sub .
+%:
+	dh $@ --with autoreconf
 
+override_dh_auto_configure:
 	mkdir obj objfake
 	cd obj && CFLAGS="$(CFLAGS)" ../configure --prefix=/usr --mandir=/usr/share/man --libdir=/usr/lib/libsdate
 	cd objfake && CFLAGS="$(CFLAGS)" ../fake/configure --prefix=/usr --mandir=/usr/share/man
 
+override_dh_auto_build:
 	cd obj && $(MAKE)
 	cd objfake && $(MAKE)
 
+override_dh_auto_test:
 	cd obj && $(MAKE) check
 
-	touch build-stamp
-
-clean:
-	dh_testdir
+override_dh_clean:
 	rm -rf build-stamp .deps obj objfake autom4te.cache
 	dh_clean
 
-binary-indep:
-
-binary binary-arch: build-stamp
-	dh_testdir
-	dh_testroot
-	dh_installdirs
-
+override_dh_auto_install:
 	cd obj && $(MAKE) DESTDIR="$(CURDIR)/debian/sdate" install
 	cd objfake && $(MAKE) DESTDIR="$(CURDIR)/debian/sdate" install
-	cd obj && ./libtool --finish $(CURDIR)/debian/sdate/usr/lib/sdate
-	cd objfake && ./libtool --finish $(CURDIR)/debian/sdate/usr/lib
-	dh_installchangelogs
-	dh_installdocs
-	dh_lintian
-	dh_compress
-	dh_strip
+	cd obj && ./libtool --mode=finish $(CURDIR)/debian/sdate/usr/lib/libsdate
+	cd objfake && ./libtool --mode=finish $(CURDIR)/debian/sdate/usr/lib
+
+override_dh_fixperms:
 	chmod 4644 debian/sdate/usr/lib/libsdate.so.0.0.1
 	dh_fixperms -Xdebian/sdate/usr/lib/libsdate.so.0.0.1
-	dh_makeshlibs
-	dh_shlibdeps
-	dh_installdeb
-	dh_gencontrol
-	dh_builddeb
-
-.PHONY: build-indep build-arch build clean binary-indep binary-arch binary

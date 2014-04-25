@@ -1,11 +1,11 @@
 dnl Process this file with autoconf to produce a configure script.
-AC_INIT
+AC_INIT([sdate],[0.4],[cb@df7cb.de],[sdate])
 AC_CONFIG_SRCDIR([libsdate.c])
 AC_CANONICAL_TARGET
 
-AM_INIT_AUTOMAKE(sdate, 0.1.0)
+AC_CONFIG_AUX_DIR([..])
+AM_INIT_AUTOMAKE
 AM_MAINTAINER_MODE
-AC_CONFIG_AUX_DIR(..)
 
 dnl AM_CONFIG_HEADER(config.h)
 

@@ -2,8 +2,9 @@
 
 set -ex
 
-aclocal-1.7
-autoheader2.50
-automake-1.7
-autoconf2.50
+aclocal
+autoheader
+libtoolize
+automake
+autoconf
 #./configure "$@"

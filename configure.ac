@@ -1,9 +1,10 @@
 dnl Process this file with autoconf to produce a configure script.
-AC_INIT([sdate],[0.3],[cb@df7cb.de],[sdate])
+AC_INIT([sdate],[0.4],[cb@df7cb.de],[sdate])
 AC_PREREQ(2.59)
 AC_CANONICAL_TARGET
 AM_INIT_AUTOMAKE
-AM_MAINTAINER_MODE
+#AM_MAINTAINER_MODE
+AC_CONFIG_MACRO_DIR([m4])
 AC_CONFIG_HEADERS([config.h])
 AC_PROG_MAKE_SET
 AM_PROG_LIBTOOL
