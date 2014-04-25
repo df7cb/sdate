@@ -49,6 +49,7 @@ binary binary-arch: build-stamp
 	dh_fixperms -Xdebian/sdate/usr/lib/libsdate.so.0.0.1
 	dh_makeshlibs
 	dh_shlibdeps
+	dh_installdeb
 	dh_gencontrol
 	dh_builddeb
 

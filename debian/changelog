@@ -1,3 +1,11 @@
+sdate (0.3.1+nmu1) unstable; urgency=low
+
+  * Non-maintainer upload.
+  * debian/rules: add dh_installdeb to fix non-generation of maintainer
+    scripts and non-invocation of ldconfig (Closes: #553011)
+
+ -- Stefano Zacchiroli <zack@debian.org>  Sat, 14 Nov 2009 16:10:08 +0100
+
 sdate (0.3.1) unstable; urgency=low
 
   * Update config.guess & sub at build time. (Closes: #534813)
