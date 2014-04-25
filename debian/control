@@ -1,7 +1,7 @@
 Source: sdate
 Section: utils
 Priority: optional
-Build-Depends: libc6-dev-s390x [s390], libc6-dev-sparc64 [sparc], debhelper (>= 7),
+Build-Depends: libc6-dev-s390x [s390], libc6-dev-sparc64 [sparc], debhelper (>= 9),
  dh-autoreconf
 Maintainer: Christoph Berg <myon@debian.org>
 Standards-Version: 3.9.5
