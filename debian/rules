@@ -14,6 +14,7 @@ endif
 override_dh_auto_configure:
 	mkdir obj objfake
 	cd obj && CFLAGS="$(CFLAGS)" ../configure --prefix=/usr --mandir=/usr/share/man --libdir=/usr/lib/libsdate
+	cd fake && autoreconf -f
 	cd objfake && CFLAGS="$(CFLAGS)" ../fake/configure --prefix=/usr --mandir=/usr/share/man
 
 override_dh_auto_build:
@@ -24,7 +25,7 @@ override_dh_auto_test:
 	cd obj && $(MAKE) check
 
 override_dh_clean:
-	rm -rf build-stamp .deps obj objfake autom4te.cache
+	rm -rf build-stamp .deps obj objfake autom4te.cache config.h.in fake/Makefile.in fake/aclocal.m4 fake/configure
 	dh_clean
 
 override_dh_auto_install:
