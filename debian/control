@@ -5,8 +5,9 @@ Build-Depends: libc6-dev-s390x [s390], libc6-dev-sparc64 [sparc], debhelper (>= 
  dh-autoreconf
 Maintainer: Christoph Berg <myon@debian.org>
 Standards-Version: 3.9.5
-Vcs-Svn: http://svn.df7cb.de/debian/sdate/trunk
-Vcs-Browser: http://svn.df7cb.de/debian/sdate/trunk
+Vcs-Git: https://github.com/ChristophBerg/sdate.git
+Vcs-Browser: https://github.com/ChristophBerg/sdate
+Homepage: https://www.df7cb.de/projects/sdate/
 
 Package: sdate
 Architecture: any
@@ -19,4 +20,3 @@ Description: never ending September date
  to a wrapper library.
  .
   * http://www.catb.org/~esr/jargon/html/S/September-that-never-ended.html
-Homepage: http://www.df7cb.de/projects/sdate/
