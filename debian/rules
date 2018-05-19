@@ -1,28 +1,17 @@
 #!/usr/bin/make -f
 
-CFLAGS = -W -Wall -g
-
-ifneq (,$(findstring noopt,$(DEB_BUILD_OPTIONS)))
-CFLAGS += -O0
-else
-CFLAGS += -O2
-endif
-
 %:
 	dh $@ --with autoreconf
 
 override_dh_auto_configure:
 	mkdir obj objfake
-	cd obj && CFLAGS="$(CFLAGS)" ../configure --prefix=/usr --mandir=/usr/share/man --libdir=/usr/lib/libsdate
+	cd obj && ../configure --prefix=/usr --mandir=/usr/share/man --libdir=/usr/lib/libsdate
 	cd fake && autoreconf -f
-	cd objfake && CFLAGS="$(CFLAGS)" ../fake/configure --prefix=/usr --mandir=/usr/share/man
+	cd objfake && ../fake/configure --prefix=/usr --mandir=/usr/share/man
 
 override_dh_auto_build:
 	cd obj && $(MAKE)
 	cd objfake && $(MAKE)
-
-override_dh_auto_test:
-	cd obj && $(MAKE) check
 
 override_dh_clean:
 	rm -rf build-stamp .deps obj objfake autom4te.cache config.h.in fake/Makefile.in fake/aclocal.m4 fake/configure
