@@ -1,0 +1,3 @@
+Depends: @, perl
+Tests: sdate
+Restrictions: allow-stderr

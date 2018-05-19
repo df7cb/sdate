@@ -1,0 +1,6 @@
+#!/bin/sh
+
+set -eux
+
+sdate | tee /dev/stderr | grep 1993
+sdate perl -le '@a = localtime; print "@a"' | tee /dev/stderr | grep ' 93 '

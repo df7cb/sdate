@@ -3,6 +3,7 @@ sdate (0.5) unstable; urgency=medium
   * Source format 3.0 (native).
   * Update config.guess+sub.
   * Bump compat and S-V.
+  * Add testsuite.
 
  -- Christoph Berg <myon@debian.org>  Sat, 19 May 2018 17:10:13 +0200
 
