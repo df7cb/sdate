@@ -1,17 +1,20 @@
 Source: sdate
 Section: utils
 Priority: optional
-Build-Depends: libc6-dev-s390x [s390], libc6-dev-sparc64 [sparc], debhelper (>= 9),
- dh-autoreconf
+Build-Depends:
+ debhelper (>= 11),
+ dh-autoreconf,
+ libc6-dev-s390x [s390],
+ libc6-dev-sparc64 [sparc],
 Maintainer: Christoph Berg <myon@debian.org>
-Standards-Version: 3.9.5
+Standards-Version: 4.1.4
 Vcs-Git: https://github.com/ChristophBerg/sdate.git
 Vcs-Browser: https://github.com/ChristophBerg/sdate
 Homepage: https://www.df7cb.de/projects/sdate/
 
 Package: sdate
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}
+Depends: ${misc:Depends}, ${shlibs:Depends}
 Description: never ending September date
  sdate wraps the libc localtime() and gmtime() functions to output the eternal
  september 1993 date.
