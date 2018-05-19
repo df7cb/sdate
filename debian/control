@@ -3,7 +3,6 @@ Section: utils
 Priority: optional
 Build-Depends:
  debhelper (>= 11),
- dh-autoreconf,
  libc6-dev-s390x [s390],
  libc6-dev-sparc64 [sparc],
 Maintainer: Christoph Berg <myon@debian.org>
