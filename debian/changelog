@@ -5,6 +5,7 @@ sdate (0.5) unstable; urgency=medium
   * Bump compat and S-V.
   * Add testsuite.
   * Remove dh-autoreconf B-D.
+  * Remove libsdate.la and shlibs file.
 
  -- Christoph Berg <myon@debian.org>  Sat, 19 May 2018 17:10:13 +0200
 

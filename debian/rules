@@ -32,7 +32,9 @@ override_dh_auto_install:
 	cd obj && $(MAKE) DESTDIR="$(CURDIR)/debian/sdate" install
 	cd objfake && $(MAKE) DESTDIR="$(CURDIR)/debian/sdate" install
 	cd obj && ./libtool --mode=finish $(CURDIR)/debian/sdate/usr/lib/libsdate
+	rm $(CURDIR)/debian/sdate/usr/lib/libsdate/libsdate.la
 	cd objfake && ./libtool --mode=finish $(CURDIR)/debian/sdate/usr/lib
+	rm $(CURDIR)/debian/sdate/usr/lib/libsdate.la
 
 override_dh_fixperms:
 	chmod 4644 debian/sdate/usr/lib/libsdate.so.0.0.1
