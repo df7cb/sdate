@@ -1,3 +1,9 @@
+sdate (0.6) UNRELEASED; urgency=medium
+
+  * Add debian/gitlab-ci.yml.
+
+ -- Christoph Berg <myon@debian.org>  Thu, 09 Apr 2020 11:14:05 +0200
+
 sdate (0.5) unstable; urgency=medium
 
   * Source format 3.0 (native).
