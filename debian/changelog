@@ -1,10 +1,11 @@
-sdate (0.6) UNRELEASED; urgency=medium
+sdate (0.6) unstable; urgency=medium
 
   * Use DH 12 and strip down rules to the minimum.
+  * Enable all hardening features.
   * Add debian/gitlab-ci.yml.
   * Test sdate -e.
 
- -- Christoph Berg <myon@debian.org>  Thu, 09 Apr 2020 11:14:05 +0200
+ -- Christoph Berg <myon@debian.org>  Thu, 09 Apr 2020 14:58:15 +0200
 
 sdate (0.5) unstable; urgency=medium
 
