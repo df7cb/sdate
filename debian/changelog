@@ -2,6 +2,7 @@ sdate (0.6) UNRELEASED; urgency=medium
 
   * Use DH 12 and strip down rules to the minimum.
   * Add debian/gitlab-ci.yml.
+  * Test sdate -e.
 
  -- Christoph Berg <myon@debian.org>  Thu, 09 Apr 2020 11:14:05 +0200
 

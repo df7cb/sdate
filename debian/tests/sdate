@@ -1,6 +1,14 @@
 #!/bin/sh
 
+export LC_ALL=C
+
 set -eux
 
-sdate | tee /dev/stderr | grep 1993
-sdate perl -le '@a = localtime; print "@a"' | tee /dev/stderr | grep ' 93 '
+sdate
+sdate | grep 1993
+
+sdate -e 1977-03
+sdate -e 1977-03 | grep 'Mar.*1977'
+
+sdate perl -le '@a = localtime; print "@a"'
+sdate perl -le '@a = localtime; print "@a"' | grep ' 93 '
