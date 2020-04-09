@@ -1,0 +1,15 @@
+# run the testsuite on travis-ci.com
+---
+language: C
+dist: bionic
+sudo: required
+
+script:
+  - autoreconf --install
+  - mkdir build
+  - cd build
+  - ../configure
+  - make
+  - sudo make install
+  - cd ..
+  - debian/tests/sdate
