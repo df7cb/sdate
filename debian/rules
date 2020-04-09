@@ -1,26 +1,9 @@
 #!/usr/bin/make -f
 
 %:
-	dh $@ --with autoreconf
+	dh $@
 
-override_dh_auto_configure:
-	mkdir obj objfake
-	cd obj && ../configure --prefix=/usr --mandir=/usr/share/man --libdir=/usr/lib/libsdate
-	cd fake && autoreconf -f
-	cd objfake && ../fake/configure --prefix=/usr --mandir=/usr/share/man
-
-override_dh_auto_build:
-	cd obj && $(MAKE)
-	cd objfake && $(MAKE)
-
-override_dh_clean:
-	rm -rf build-stamp .deps obj objfake autom4te.cache config.h.in fake/Makefile.in fake/aclocal.m4 fake/configure
-	dh_clean
-
-override_dh_auto_install:
-	cd obj && $(MAKE) DESTDIR="$(CURDIR)/debian/sdate" install
-	cd objfake && $(MAKE) DESTDIR="$(CURDIR)/debian/sdate" install
-	cd obj && ./libtool --mode=finish $(CURDIR)/debian/sdate/usr/lib/libsdate
-	rm $(CURDIR)/debian/sdate/usr/lib/libsdate/libsdate.la
-	cd objfake && ./libtool --mode=finish $(CURDIR)/debian/sdate/usr/lib
-	rm $(CURDIR)/debian/sdate/usr/lib/libsdate.la
+execute_after_dh_auto_install:
+	rm debian/sdate/usr/lib/*/libsdate.a
+	rm debian/sdate/usr/lib/*/libsdate.la
+	rm debian/sdate/usr/lib/*/libsdate.so
