@@ -21,6 +21,8 @@ sdate \- never ending September date
 .B sdate 
 .B [\-e|\-\-epoch
 .IB yyyy-mm]
+.B [\-c|\-\-covid
+.IB vv]
 .B [\-l|\-\-lib
 .IB library]
 .BI [\-\-]
@@ -39,6 +41,10 @@ mechanism of the dynamic loader. (See
 .TP
 \fB\-e\fR \fIyyyy-mm\fR, \fB\-\-epoch\fR \fIyyyy-mm\fR
 Specify an alternative epoch, default is 1993-09.
+.TP
+\fB\-c\fR \fIvv\fR, \fB\-\-covid\fR \fIvv\fR
+Enable COVID mode, for the specified variant. Sets epoch to
+an appropriate value for the variant.
 .TP
 \fB\-l\fR \fIlibrary\fR, \fB\-\-lib\fR \fIlibrary\fR
 Specify an alternative wrapper library.

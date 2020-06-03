@@ -3,8 +3,8 @@
 usage () {
 cat - >&2 <<EOF
 sdate, never ending September date
-   usage: sdate [-e|--epoch yyyy-mm] [-l|--lib sdatelib] [-h|--help] [-v|--version]
-                [--] [command]
+   usage: sdate [-e|--epoch yyyy-mm] [-c|--covid vv] [-l|--lib sdatelib]
+                [-h|--help] [-v|--version] [--] [command]
 EOF
   exit 1
 }
@@ -21,10 +21,10 @@ libfound=no
 GETOPTEST=`getopt --version`
 case $GETOPTEST in
 getopt*) # GNU getopt
-    TEMP=`getopt -l lib: -l epoch: -l version -l help -- +l:f:e:s:ub:vh "$@"`
+    TEMP=`getopt -l lib: -l epoch: -l version -l help -- +l:f:e:c:s:ub:vh "$@"`
     ;;
 *) # POSIX getopt ?
-    TEMP=`getopt l:f:e:s:ub:vh "$@"`
+    TEMP=`getopt l:f:e:c:s:ub:vh "$@"`
     ;;
 esac
 
@@ -45,6 +45,19 @@ while test "X$1" != "X--"; do
        shift
        SDATE_EPOCH="$1"
        export SDATE_EPOCH
+       ;;
+    -c|--covid)
+       shift
+       case "$1" in
+	 19)
+	    SDATE_EPOCH="2020-03"
+	    export SDATE_EPOCH
+	    ;;
+	 *)
+	    echo "Unknown COVID variant - supported variants are: 19"
+	    exit 1
+	    ;;
+       esac
        ;;
     -v|--version)
        echo "sdate version @VERSION@"
