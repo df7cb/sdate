@@ -21,7 +21,7 @@ libfound=no
 GETOPTEST=`getopt --version`
 case $GETOPTEST in
 getopt*) # GNU getopt
-    TEMP=`getopt -l lib: -l epoch: -l version -l help -- +l:f:e:c:s:ub:vh "$@"`
+    TEMP=`getopt -l lib: -l covid: -l epoch: -l version -l help -- +l:f:e:c:s:ub:vh "$@"`
     ;;
 *) # POSIX getopt ?
     TEMP=`getopt l:f:e:c:s:ub:vh "$@"`
