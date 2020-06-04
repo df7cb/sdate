@@ -1,3 +1,9 @@
+sdate (0.7) unstable; urgency=medium
+
+  * Support COVID 19 date.
+
+ -- Christoph Berg <myon@debian.org>  Thu, 04 Jun 2020 20:34:14 +0200
+
 sdate (0.6) unstable; urgency=medium
 
   * Use DH 12 and strip down rules to the minimum.

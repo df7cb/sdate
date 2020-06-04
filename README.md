@@ -17,6 +17,22 @@ http://www.catb.org/~esr/jargon/html/S/September-that-never-ended.html
 
 [![Build Status](https://travis-ci.org/df7cb/sdate.svg?branch=master)](https://travis-ci.org/df7cb/sdate)
 
+# Other Epochs
+
+Also supported is the never ending COVID 19 date:
+
+```
+$ sdate --covid 19
+Thu Mar 96 20:01:20 CEST 2020
+```
+
+Other epochs can be selected using `-e` or `--epoch`:
+
+```
+$ sdate -e 1977-03
+Do 15802. Mär 20:02:34 CEST 1977
+```
+
 # Programs compatible with sdate
 
 Mutt: works. It will send out septemberfied Date: headers. Depends if you like

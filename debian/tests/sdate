@@ -7,6 +7,9 @@ set -eux
 sdate
 sdate | grep 1993
 
+sdate --covid 19
+sdate --covid 19 | grep 2020
+
 sdate -e 1977-03
 sdate -e 1977-03 | grep 'Mar.*1977'
 

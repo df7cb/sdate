@@ -1,5 +1,5 @@
 dnl Process this file with autoconf to produce a configure script.
-AC_INIT([sdate],[0.6],[cb@df7cb.de],[sdate])
+AC_INIT([sdate],[0.7],[cb@df7cb.de],[sdate])
 AC_PREREQ(2.59)
 AC_CANONICAL_TARGET
 AM_INIT_AUTOMAKE
