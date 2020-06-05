@@ -1,12 +1,11 @@
 #!/bin/sh
 
 usage () {
-cat - >&2 <<EOF
+cat - <<EOF
 sdate, never ending September date
    usage: sdate [-e|--epoch yyyy-mm] [-c|--covid vv] [-l|--lib sdatelib]
                 [-h|--help] [-v|--version] [--] [command]
 EOF
-  exit 1
 }
 
 # strip /bin/sdate to find install prefix
@@ -29,7 +28,8 @@ getopt*) # GNU getopt
 esac
 
 if test "$?" -ne 0; then
-  usage
+  usage >&2
+  exit 1
 fi
 
 eval set -- "$TEMP"
@@ -54,7 +54,7 @@ while test "X$1" != "X--"; do
 	    export SDATE_EPOCH
 	    ;;
 	 *)
-	    echo "Unknown COVID variant - supported variants are: 19"
+	    echo "Unknown COVID variant - supported variants are: 19" >&2
 	    exit 1
 	    ;;
        esac
@@ -65,6 +65,7 @@ while test "X$1" != "X--"; do
        ;;
     -h|--help)
        usage
+       exit 0
        ;;
   esac
   shift
