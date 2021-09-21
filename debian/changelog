@@ -1,3 +1,9 @@
+sdate (0.8) UNRELEASED; urgency=medium
+
+  * Trim trailing whitespace.
+
+ -- Debian Janitor <janitor@jelmer.uk>  Tue, 21 Sep 2021 04:57:42 -0000
+
 sdate (0.7) unstable; urgency=medium
 
   * Support COVID 19 date.
@@ -91,4 +97,3 @@ sdate (0.1) unstable; urgency=low
   * Sources copied from fakeroot 1.1.2.
 
  -- Christoph Berg <cb@df7cb.de>  Fri, 15 Oct 2004 18:05:54 +0200
-
