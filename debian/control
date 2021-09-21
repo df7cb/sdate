@@ -7,7 +7,7 @@ Build-Depends:
  libc6-dev-s390x [s390],
  libc6-dev-sparc64 [sparc],
 Maintainer: Christoph Berg <myon@debian.org>
-Standards-Version: 4.5.0
+Standards-Version: 4.5.1
 Vcs-Git: https://github.com/df7cb/sdate.git
 Vcs-Browser: https://github.com/df7cb/sdate
 Homepage: https://www.df7cb.de/projects/sdate/
